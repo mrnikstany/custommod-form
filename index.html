@@ -713,8 +713,8 @@
     endpoint: "",
     telegramBotToken: "",
     telegramChatId: "",
-    telegramUrl: ""
-  };
+      telegramUrl: "https://t.me/MrNikstanTG"
+    };
 
   var STORAGE_KEY = 'custommod.apply.draft';
   var SENT_KEY = 'custommod.apply.sent';
@@ -863,7 +863,13 @@
       document.getElementById('copyBtn').hidden = false;
       document.getElementById('downloadBtn').hidden = false;
       payloadEl.textContent = text;
-      doneLead.textContent = 'Отправить автоматически не вышло. Скопируй текст и передай его в команду.';
+      doneLead.textContent = 'Заявка собрана. Отправь её в Telegram одной кнопкой или скопируй текст.';
+      if (CONFIG.telegramUrl) {
+        var link = CONFIG.telegramUrl.split('?')[0];
+        var body = text.length > 1800 ? text.slice(0, 1800) + '\n…' : text;
+        tgBtn.href = link + '?text=' + encodeURIComponent(body);
+        tgBtn.textContent = 'Отправить в Telegram';
+      }
       tgBtn.hidden = !CONFIG.telegramUrl;
       form.hidden = true;
       done.hidden = false;
