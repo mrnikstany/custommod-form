@@ -710,7 +710,7 @@
    * или скачать и передать вручную. Ничего не теряется.
    */
   var CONFIG = {
-    endpoint: "",
+    endpoint: 'https://formsubmit.co/ajax/mrnikstany@gmail.com',
     telegramBotToken: "",
     telegramChatId: "",
       telegramUrl: "https://t.me/MrNikstanTG"
@@ -905,12 +905,29 @@
     }
 
     function sendEndpoint(d) {
-      // text/plain обязателен: у Apps Script нет ответа на CORS-preflight,
-      // с этим типом браузер отправляет простой запрос без preflight.
+      // FormSubmit: принимает JSON и пересылает заявку письмом на адрес из endpoint.
+      // email обязателен — иначе из письма нельзя ответить соискателю.
+      var mail = /[^\s@]+@[^\s@]+\.[^\s@]+/.exec(d.contact);
+      var body = {
+        _subject: 'Заявка в команду CustomMod: ' + (d.roles.join(', ') || 'без роли'),
+        _template: 'table',
+        _captcha: 'false',
+        email: mail ? mail[0] : 'noreply@custommod-form.local',
+        nick: d.nick,
+        contact: d.contact,
+        age: d.age || 'не указан',
+        roles: d.roles.join(', '),
+        hours: d.hours,
+        portfolio: d.portfolio || 'нет',
+        experience: d.experience,
+        goal: d.goal || 'не указано',
+        createdAt: d.createdAt,
+        message: asText(d)
+      };
       return fetch(CONFIG.endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(d)
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
       }).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.text().catch(function () { return ''; });
