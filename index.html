@@ -899,12 +899,15 @@
     }
 
     function sendEndpoint(d) {
+      // text/plain обязателен: у Apps Script нет ответа на CORS-preflight,
+      // с этим типом браузер отправляет простой запрос без preflight.
       return fetch(CONFIG.endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(d)
       }).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.text().catch(function () { return ''; });
       });
     }
 
