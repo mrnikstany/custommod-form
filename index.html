@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CustomMod — набор в команду стартапа</title>
+<meta name="description" content="Заявка в команду CustomMod: тестеры, билдеры, геймдизайнеры, 3D-моделлеры, скин-мейкеры, разработчики, художники и контент-мейкеры.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07090F">
+<style>
+  :root{
+    --ink:#07090F;
+    --ink-2:#0B0E17;
+    --panel:#10141F;
+    --panel-2:#141927;
+    --line:#2B3450;
+    --line-strong:#465276;
+    --gold:#E8C39E;
+    --gold-2:#C9A227;
+    --aqua:#5CE1E6;
+    --text:#E7EAF3;
+    --muted:#98A2B8;
+    --muted-2:#B8C0D4;
+    --danger:#F0736A;
+    --ok:#63D68A;
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .bg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:
+      radial-gradient(900px 600px at 12% -10%, rgba(201,162,39,.16), transparent 60%),
+      radial-gradient(800px 520px at 100% 0%, rgba(92,225,230,.10), transparent 55%),
+      radial-gradient(900px 700px at 50% 120%, rgba(70,82,118,.35), transparent 60%),
+      linear-gradient(180deg, #07090F 0%, #080B13 100%);
+  }
+  .bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:linear-gradient(rgba(70,82,118,.08) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(70,82,118,.08) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);
+  }
+
+  .top{
+    position:relative;
+    z-index:1;
+    max-width:1180px;
+    margin:0 auto;
+    padding:26px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    border-bottom:1px solid rgba(70,82,118,.35);
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .mark{width:38px;height:38px;flex:none}
+  .brand__text{display:flex;flex-direction:column;line-height:1.1}
+  .brand__text strong{font-size:14px;letter-spacing:.18em;font-weight:700}
+  .brand__text small{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+  .status{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);
+    border:1px solid rgba(70,82,118,.55);
+    padding:7px 12px;border-radius:999px;
+    background:rgba(16,20,31,.7);
+    white-space:nowrap;
+  }
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px rgba(99,214,138,.8)}
+
+  .shell{
+    position:relative;
+    z-index:1;
+    max-width:1180px;
+    margin:0 auto;
+    padding:54px 24px 80px;
+    display:grid;
+    grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+    gap:56px;
+    align-items:start;
+  }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 18px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold-2)}
+
+  h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-weight:400;
+    font-size:clamp(34px,4.2vw,56px);
+    line-height:1.03;
+    letter-spacing:-.01em;
+    margin:0;
+  }
+  h1 span{color:var(--gold);display:block}
+
+  .lead{
+    color:var(--muted-2);
+    max-width:56ch;
+    margin:20px 0 0;
+    font-size:15px;
+  }
+
+  .facts{
+    list-style:none;
+    margin:30px 0 0;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+    border-top:1px solid rgba(70,82,118,.35);
+    padding-top:18px;
+  }
+  .facts li{display:flex;flex-direction:column;gap:2px}
+  .facts b{font-family:Georgia,serif;font-size:20px;color:var(--gold);font-weight:400}
+  .facts span{font-size:12px;color:var(--muted)}
+
+  .roster{
+    margin-top:28px;
+    border-left:1px solid rgba(70,82,118,.55);
+    padding-left:18px;
+  }
+  .roster__title{
+    display:block;
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:10px;
+  }
+  .roster ul{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px 18px;
+  }
+  .roster li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted-2)}
+  .roster i{
+    width:7px;height:7px;border-radius:50%;flex:none;
+    background:var(--c,#888);box-shadow:0 0 9px var(--c,#888);
+  }
+
+  .block{margin-top:34px}
+  .block > h2{
+    font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:0 0 14px;
+  }
+
+  .roles{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0 22px;
+  }
+  .roles li{
+    display:grid;
+    grid-template-columns:22px 1fr;
+    gap:2px 10px;
+    padding:11px 0;
+    border-top:1px solid rgba(70,82,118,.3);
+    min-width:0;
+  }
+  .roles li:nth-child(odd){border-top-color:rgba(70,82,118,.3)}
+  .roles__num{
+    grid-row:1 / span 2;
+    font-size:10px;letter-spacing:.08em;color:var(--gold-2);
+    padding-top:3px;
+  }
+  .roles__name{font-size:13.5px;font-weight:600;color:var(--text)}
+  .roles__desc{font-size:12.5px;color:var(--muted);line-height:1.4}
+
+  .gains{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px 22px;
+  }
+  .gains li{
+    position:relative;
+    padding-left:16px;
+    font-size:12.8px;
+    color:var(--muted-2);
+    line-height:1.45;
+  }
+  .gains li::before{
+    content:"";
+    position:absolute;left:0;top:.62em;
+    width:7px;height:1px;
+    background:var(--gold-2);
+  }
+  .gains b{color:var(--text);font-weight:600}
+
+  .note{
+    margin-top:30px;
+    font-size:12.5px;
+    color:var(--muted);
+    border-top:1px solid rgba(70,82,118,.35);
+    padding-top:16px;
+    max-width:52ch;
+  }
+
+  .apply{min-width:0}
+  .card{
+    position:relative;
+    background:linear-gradient(160deg,var(--panel-2),#0D111B 70%);
+    border:1px solid rgba(70,82,118,.65);
+    border-radius:var(--radius);
+    padding:26px 26px 24px;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;inset:0 0 auto;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    opacity:.75;
+  }
+  .card__head h2{
+    margin:0;
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:23px;
+    letter-spacing:-.01em;
+  }
+  .card__head p{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+
+  .progress{
+    display:flex;align-items:center;gap:12px;
+    margin:16px 0 2px;
+  }
+  .progress__track{
+    position:relative;flex:1;height:3px;border-radius:2px;
+    background:#1B2236;overflow:hidden;
+  }
+  .progress__fill{
+    position:absolute;inset:0 auto 0 0;width:0%;
+    background:linear-gradient(90deg,var(--gold-2),var(--gold));
+    transition:width .25s ease;
+  }
+  .progress__label{
+    font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);white-space:nowrap;
+  }
+
+  .group{
+    display:flex;align-items:center;gap:10px;
+    margin:24px 0 0;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold-2);
+  }
+  .group::after{content:"";flex:1;height:1px;background:rgba(70,82,118,.45)}
+
+  .field{margin-top:16px;min-width:0}
+  .field label, .field legend{
+    display:block;
+    font-size:12px;
+    letter-spacing:.03em;
+    color:#C7CEE0;
+    margin-bottom:7px;
+    padding:0;
+  }
+  .field legend{padding:0}
+  .field small{color:var(--muted);font-size:11px}
+  .req{color:var(--gold)}
+
+  input[type="text"],input[type="number"],input[type="url"],select,textarea{
+    width:100%;
+    background:#0A0E18;
+    border:1px solid #232B44;
+    color:var(--text);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:14px;
+    font-family:inherit;
+    transition:border-color .15s ease, box-shadow .15s ease;
+    appearance:none;
+  }
+  select{
+    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),
+                     linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+    background-position:calc(100% - 19px) 20px, calc(100% - 14px) 20px;
+    background-size:5px 5px,5px 5px;
+    background-repeat:no-repeat;
+    padding-right:38px;
+  }
+  textarea{resize:vertical;min-height:92px;line-height:1.5}
+  input::placeholder,textarea::placeholder{color:#5E6980}
+  input:focus,select:focus,textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(232,195,158,.12);
+  }
+  [aria-invalid="true"]{border-color:var(--danger)!important;box-shadow:0 0 0 3px rgba(240,115,106,.10)!important}
+
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .field--age{max-width:none}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{position:relative;display:inline-flex}
+  .chip input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+  .chip span{
+    display:inline-flex;align-items:center;
+    padding:8px 13px;
+    border:1px solid #232B44;
+    border-radius:999px;
+    font-size:12.5px;
+    color:#AEB7CC;
+    cursor:pointer;
+    transition:all .15s ease;
+    user-select:none;
+  }
+  .chip:hover span{border-color:var(--line-strong);color:var(--text)}
+  .chip input:checked + span{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#171008;
+    font-weight:600;
+  }
+  .chip input:focus-visible + span{outline:2px solid var(--aqua);outline-offset:2px}
+
+  .hint{text-align:right;font-size:10.5px;color:var(--muted);margin-top:5px}
+  .err{color:var(--danger);font-size:11.5px;margin:6px 0 0;min-height:0}
+
+  .honey{
+    position:absolute!important;
+    left:-9999px!important;
+    width:1px;height:1px;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .check{
+    display:flex;gap:10px;align-items:flex-start;
+    margin-top:18px;
+    font-size:12.5px;
+    color:var(--muted-2);
+    cursor:pointer;
+    line-height:1.45;
+  }
+  .check input{
+    margin:2px 0 0;width:16px;height:16px;flex:none;
+    accent-color:var(--gold);
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:100%;
+    margin-top:20px;
+    padding:14px 18px;
+    border:none;border-radius:12px;
+    background:linear-gradient(180deg,#F0D3B0,#D9AE72);
+    color:#171008;
+    font-family:inherit;
+    font-size:14px;font-weight:700;letter-spacing:.02em;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(201,162,39,.25);filter:brightness(1.03)}
+  .btn:active{transform:translateY(0)}
+  .btn:disabled{opacity:.6;cursor:progress;transform:none;box-shadow:none}
+  .btn--ghost{
+    background:transparent;
+    border:1px solid var(--line-strong);
+    color:var(--text);
+    font-weight:600;
+  }
+  .btn--ghost:hover{box-shadow:none;border-color:var(--gold);color:var(--gold)}
+
+  .fineprint{font-size:10.5px;color:var(--muted);text-align:center;margin:12px 0 0}
+
+  .done{text-align:center;padding:6px 0 0}
+  .done__mark{
+    width:54px;height:54px;border-radius:50%;
+    border:1px solid rgba(99,214,138,.6);
+    color:var(--ok);
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;margin:0 auto 14px;
+    background:rgba(99,214,138,.08);
+  }
+  .done h3{font-family:Georgia,serif;font-weight:400;font-size:22px;margin:0 0 8px}
+  .done p{color:var(--muted-2);font-size:13px;margin:0 auto;max-width:38ch}
+  .payload{
+    text-align:left;
+    margin:18px 0 0;
+    padding:14px;
+    background:#080B12;
+    border:1px solid #1E2740;
+    border-radius:12px;
+    font-size:11.5px;
+    line-height:1.5;
+    color:#AEB7CC;
+    white-space:pre-wrap;
+    max-height:240px;
+    overflow:auto;
+    font-family:ui-monospace,Consolas,monospace;
+  }
+  .done__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .done__actions .btn{margin-top:0;flex:1;min-width:130px}
+  .link{
+    margin-top:16px;background:none;border:none;color:var(--gold);
+    font-family:inherit;font-size:12.5px;cursor:pointer;text-decoration:underline;
+    text-underline-offset:3px;
+  }
+
+  .legal{font-size:10.5px;color:var(--muted);text-align:center;margin:14px 4px 0;line-height:1.5}
+
+  .foot{
+    position:relative;z-index:1;
+    max-width:1180px;margin:0 auto;
+    padding:0 24px 40px;
+    display:flex;flex-wrap:wrap;gap:10px 20px;
+    align-items:center;justify-content:space-between;
+    font-size:11px;letter-spacing:.08em;color:#6C7690;
+  }
+
+  @media (max-width:980px){
+    .shell{grid-template-columns:1fr;gap:38px;padding-top:38px}
+    .roles{gap:0 18px}
+  }
+  @media (max-width:560px){
+    .top{padding:18px 16px}
+    .shell{padding:28px 16px 56px}
+    .card{padding:22px 18px}
+    .row{grid-template-columns:1fr}
+    .roster ul{grid-template-columns:1fr}
+    .facts{grid-template-columns:1fr;gap:8px}
+    .facts li{flex-direction:row;align-items:baseline;gap:10px}
+    .facts b{min-width:78px}
+    .roles{grid-template-columns:1fr}
+    .gains{grid-template-columns:1fr}
+    .foot{padding:0 16px 28px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="#applyForm">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#E8C39E"/>
+          <stop offset="1" stop-color="#C9A227"/>
+        </linearGradient>
+      </defs>
+      <circle cx="24" cy="24" r="21" fill="none" stroke="url(#g)" stroke-width="1.4" opacity=".9"/>
+      <path d="M24 9.5 37 31.5H11Z" fill="none" stroke="url(#g)" stroke-width="1.4"/>
+      <path d="M24 18.5v9.5M19.5 23h9" stroke="url(#g)" stroke-width="1.2" opacity=".8"/>
+    </svg>
+    <span class="brand__text">
+      <strong>CUSTOMMOD</strong>
+      <small>набор в команду</small>
+    </span>
+  </a>
+  <div class="status"><span class="dot"></span>Набор открыт</div>
+</header>
+
+<main class="shell">
+  <section class="intro" aria-labelledby="hero-title">
+    <p class="eyebrow">Закрытая бета · Minecraft · RPG</p>
+    <h1 id="hero-title">Делаем свой сервер.<span>Нужны люди.</span></h1>
+    <p class="lead">
+      Minecraft-сервер с семью расами, своим клиентом и лаунчером. Пока закрытая
+      бета: часть механик готова, часть ещё в работе. Ищем тех, кто поможет
+      довести проект до релиза.
+    </p>
+
+    <ul class="facts">
+      <li><b>7</b><span>рас и 21 подраса</span></li>
+      <li><b>свой</b><span>клиент и лаунчер</span></li>
+      <li><b>удалённо</b><span>гибкий график</span></li>
+    </ul>
+
+    <div class="roster" aria-label="Расы проекта">
+      <span class="roster__title">Расы проекта</span>
+      <ul>
+        <li style="--c:#E7EAF3"><i></i>Люди</li>
+        <li style="--c:#8C93A6"><i></i>Нежить</li>
+        <li style="--c:#7ED08A"><i></i>Эльфы</li>
+        <li style="--c:#E0574F"><i></i>Армада</li>
+        <li style="--c:#A33A3A"><i></i>Демоны</li>
+        <li style="--c:#C9A227"><i></i>Оборотни</li>
+        <li style="--c:#5CE1E6"><i></i>Небожители</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2>Кого ищем</h2>
+      <ul class="roles">
+        <li>
+          <span class="roles__num">01</span>
+          <span class="roles__name">Тестеры</span>
+          <span class="roles__desc">Ловят баги, ломают баланс и пишут понятные баг-репорты.</span>
+        </li>
+        <li>
+          <span class="roles__num">02</span>
+          <span class="roles__name">Билдеры</span>
+          <span class="roles__desc">Лобби, арены, крепости, декорации и атмосфера мира.</span>
+        </li>
+        <li>
+          <span class="roles__num">03</span>
+          <span class="roles__name">Геймдизайнеры</span>
+          <span class="roles__desc">Механики, экономика, прогрессия, идеи для событий.</span>
+        </li>
+        <li>
+          <span class="roles__num">04</span>
+          <span class="roles__name">3D-моделлеры</span>
+          <span class="roles__desc">Мобы, оружие, броня и предметы в Blockbench.</span>
+        </li>
+        <li>
+          <span class="roles__num">05</span>
+          <span class="roles__name">Скин-мейкеры</span>
+          <span class="roles__desc">Скины рас, подрас и косметика для игроков.</span>
+        </li>
+        <li>
+          <span class="roles__num">06</span>
+          <span class="roles__name">Разработчики</span>
+          <span class="roles__desc">Java-плагины, клиент, лаунчер, базы данных.</span>
+        </li>
+        <li>
+          <span class="roles__num">07</span>
+          <span class="roles__name">Художники</span>
+          <span class="roles__desc">Иконки, интерфейсы, иллюстрации, обложки, трейлеры.</span>
+        </li>
+        <li>
+          <span class="roles__num">08</span>
+          <span class="roles__name">Контент-мейкеры</span>
+          <span class="roles__desc">Видео, стримы, посты и жизнь сообщества.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2>Что получишь</h2>
+      <ul class="gains">
+        <li>Доступ к бете и ко всем сборкам, включая тестовые.</li>
+        <li>Свою роль в проекте и упоминание в титрах.</li>
+        <li>Работы, которые можно положить в портфолио.</li>
+        <li>Возможность влиять на то, что попадёт в игру.</li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Ответим в Discord или Telegram в течение двух дней. Формат участия
+      обсуждаем: можно помочь с одной задачей, можно зайти на постоянную роль.
+    </p>
+  </section>
+
+  <section class="apply" aria-labelledby="form-title">
+    <div class="card">
+      <div class="card__head">
+        <h2 id="form-title">Заявка в команду</h2>
+        <p>Заполняется за пару минут.</p>
+      </div>
+
+      <div class="progress" aria-hidden="true">
+        <div class="progress__track"><div class="progress__fill" id="progressFill"></div></div>
+        <span class="progress__label" id="progressLabel">0 из 5</span>
+      </div>
+
+      <form id="applyForm" novalidate autocomplete="on">
+        <p class="group">01 · Кто ты</p>
+
+        <div class="field">
+          <label for="nick">Ник <span class="req">*</span></label>
+          <input id="nick" name="nick" type="text" maxlength="32" autocomplete="nickname" placeholder="Как тебя зовут в игре" required>
+          <p class="err" data-err-for="nick" role="alert"></p>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="contact">Discord или Telegram <span class="req">*</span></label>
+            <input id="contact" name="contact" type="text" maxlength="64" placeholder="@nick" required>
+            <p class="err" data-err-for="contact" role="alert"></p>
+          </div>
+          <div class="field field--age">
+            <label for="age">Возраст</label>
+            <input id="age" name="age" type="number" min="14" max="99" inputmode="numeric" placeholder="16">
+            <p class="err" data-err-for="age" role="alert"></p>
+          </div>
+        </div>
+
+        <p class="group">02 · Роль и опыт</p>
+
+        <fieldset class="field" style="border:0;padding:0;margin:16px 0 0">
+          <legend>Роль <span class="req">*</span> <small>(можно несколько)</small></legend>
+          <div class="chips" id="roles">
+            <label class="chip"><input type="checkbox" name="roles" value="Тестер"><span>Тестер</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Билдер"><span>Билдер</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Геймдизайнер"><span>Геймдизайнер</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="3D-моделлер"><span>3D-моделлер</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Скин-мейкер"><span>Скин-мейкер</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Разработчик"><span>Разработчик</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Художник"><span>Художник</span></label>
+            <label class="chip"><input type="checkbox" name="roles" value="Контент-мейкер"><span>Контент-мейкер</span></label>
+          </div>
+          <p class="err" data-err-for="roles" role="alert"></p>
+        </fieldset>
+
+        <div class="field">
+          <label for="portfolio">Портфолио или примеры <small>(необязательно)</small></label>
+          <input id="portfolio" name="portfolio" type="url" placeholder="https://..." inputmode="url">
+          <p class="err" data-err-for="portfolio" role="alert"></p>
+        </div>
+
+        <div class="field">
+          <label for="hours">Сколько часов в неделю</label>
+          <select id="hours" name="hours">
+            <option value="до 5">до 5</option>
+            <option value="5–10" selected>5–10</option>
+            <option value="10–20">10–20</option>
+            <option value="20+">20+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="experience">Опыт и что умеешь <span class="req">*</span></label>
+          <textarea id="experience" name="experience" maxlength="600" rows="4" placeholder="Проекты, инструменты, что делал раньше" required></textarea>
+          <div class="hint"><span data-count-for="experience">0</span>/600</div>
+          <p class="err" data-err-for="experience" role="alert"></p>
+        </div>
+
+        <div class="field">
+          <label for="goal">Что хочешь делать в проекте <small>(необязательно)</small></label>
+          <textarea id="goal" name="goal" maxlength="400" rows="3" placeholder="Идеи, направления, чего ждёшь от команды"></textarea>
+          <div class="hint"><span data-count-for="goal">0</span>/400</div>
+        </div>
+
+        <p class="group">03 · Подтверждение</p>
+
+        <label class="check">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span>Мне 14+, я согласен с правилами проекта и NDA, и на обработку этих данных командой CustomMod. <span class="req">*</span></span>
+        </label>
+        <p class="err" data-err-for="consent" role="alert"></p>
+
+        <div class="honey" aria-hidden="true">
+          <label for="company">Не заполняй это поле</label>
+          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
+        <p class="fineprint">Заявку видит только команда проекта.</p>
+      </form>
+
+      <div class="done" id="done" hidden>
+        <div class="done__mark" aria-hidden="true">✓</div>
+        <h3>Заявка готова</h3>
+        <p id="doneLead">Заявка собрана. Скопируй текст и передай его в команду.</p>
+        <pre class="payload" id="payload"></pre>
+        <div class="done__actions">
+          <button class="btn btn--ghost" type="button" id="copyBtn">Скопировать</button>
+          <a class="btn" id="tgBtn" href="#" target="_blank" rel="noopener" hidden>Открыть Telegram</a>
+          <button class="btn btn--ghost" type="button" id="downloadBtn">Скачать .txt</button>
+        </div>
+        <button class="link" type="button" id="againBtn">Заполнить ещё одну</button>
+      </div>
+    </div>
+
+    <p class="legal">
+      Данные заявки видит только команда проекта. Мы не публикуем их и не
+      передаём третьим лицам.
+    </p>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>CustomMod · закрытая бета 2026</span>
+  <span>Заявки рассматривает команда проекта</span>
+</footer>
+
+<script>
+  /*
+   * Приём заявок — три режима, включаются в CONFIG ниже.
+   *
+   * 1. Telegram (проще всего, работает без сайта и хостинга):
+   *    @BotFather → /newbot → токен; напиши боту любое сообщение и возьми chat_id
+   *    через https://api.telegram.org/bot<token>/getUpdates
+   *    Заполни telegramBotToken и telegramChatId.
+   *
+   * 2. Google Таблица (как у Google Forms): Apps Script → «Веб-приложение»,
+   *    доступ «Все», вставь URL в endpoint. Скрипт: таблица на 3 колонки,
+   *    в doPost(e) берёшь JSON из e.postData.contents и делаешь appendRow.
+   *
+   * 3. Formspree/свой сервер: любой URL, принимающий JSON POST и отвечающий 2xx.
+   *
+   * Если всё пусто — форма собирает текст заявки, его можно скопировать
+   * или скачать и передать вручную. Ничего не теряется.
+   */
+  var CONFIG = {
+    endpoint: "",
+    telegramBotToken: "",
+    telegramChatId: "",
+    telegramUrl: ""
+  };
+
+  var STORAGE_KEY = 'custommod.apply.draft';
+  var SENT_KEY = 'custommod.apply.sent';
+
+  (function () {
+    var form = document.getElementById('applyForm');
+    var done = document.getElementById('done');
+    var payloadEl = document.getElementById('payload');
+    var doneLead = document.getElementById('doneLead');
+    var submitBtn = document.getElementById('submitBtn');
+    var tgBtn = document.getElementById('tgBtn');
+    var fill = document.getElementById('progressFill');
+    var progressLabel = document.getElementById('progressLabel');
+
+    var fields = {
+      nick: document.getElementById('nick'),
+      contact: document.getElementById('contact'),
+      age: document.getElementById('age'),
+      portfolio: document.getElementById('portfolio'),
+      experience: document.getElementById('experience'),
+      consent: document.getElementById('consent')
+    };
+    var honey = document.getElementById('company');
+
+    function store(key, value) {
+      try {
+        if (value === null) localStorage.removeItem(key);
+        else localStorage.setItem(key, value);
+      } catch (e) { /* хранилище недоступно — работаем без него */ }
+    }
+
+    function read(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+
+    function errEl(name) {
+      return document.querySelector('[data-err-for="' + name + '"]');
+    }
+
+    function setError(name, message) {
+      var el = errEl(name);
+      if (el) el.textContent = message || '';
+      var input = fields[name];
+      if (input && input.setAttribute) {
+        if (message) input.setAttribute('aria-invalid', 'true');
+        else input.removeAttribute('aria-invalid');
+      }
+    }
+
+    function selectedRoles() {
+      return Array.prototype.slice
+        .call(document.querySelectorAll('input[name="roles"]:checked'))
+        .map(function (i) { return i.value; });
+    }
+
+    function updateProgress() {
+      var steps = [
+        fields.nick.value.trim().length >= 2,
+        fields.contact.value.trim().length >= 3,
+        selectedRoles().length > 0,
+        fields.experience.value.trim().length >= 20,
+        fields.consent.checked
+      ];
+      var passed = steps.filter(Boolean).length;
+      fill.style.width = Math.round((passed / steps.length) * 100) + '%';
+      progressLabel.textContent = passed + ' из ' + steps.length;
+    }
+
+    function validate() {
+      var ok = true;
+      var first = null;
+
+      function fail(name, message, node) {
+        setError(name, message);
+        if (!first) first = node || fields[name] || document.querySelector('input[name="roles"]');
+        ok = false;
+      }
+
+      ['nick', 'contact', 'age', 'portfolio', 'experience', 'consent', 'roles'].forEach(function (n) {
+        setError(n, '');
+      });
+
+      if (fields.nick.value.trim().length < 2) fail('nick', 'Укажи ник, минимум 2 символа', fields.nick);
+      if (fields.contact.value.trim().length < 3) fail('contact', 'Нужен Discord или Telegram', fields.contact);
+
+      var age = fields.age.value.trim();
+      if (age !== '') {
+        var n = Number(age);
+        if (!isFinite(n) || n < 14 || n > 99) fail('age', 'Возраст от 14 до 99', fields.age);
+      }
+
+      if (!selectedRoles().length) fail('roles', 'Выбери хотя бы одну роль');
+
+      var portfolio = fields.portfolio.value.trim();
+      if (portfolio !== '' && !/^https?:\/\/\S+\.\S+/i.test(portfolio)) {
+        fail('portfolio', 'Ссылка должна начинаться с http:// или https://', fields.portfolio);
+      }
+
+      if (fields.experience.value.trim().length < 20) {
+        fail('experience', 'Опиши опыт, минимум 20 символов', fields.experience);
+      }
+
+      if (!fields.consent.checked) fail('consent', 'Нужно согласие с правилами и NDA', fields.consent);
+
+      if (!ok && first && first.focus) first.focus();
+      return ok;
+    }
+
+    function collect() {
+      return {
+        nick: fields.nick.value.trim(),
+        contact: fields.contact.value.trim(),
+        age: fields.age.value.trim(),
+        roles: selectedRoles(),
+        portfolio: fields.portfolio.value.trim(),
+        hours: document.getElementById('hours').value,
+        experience: fields.experience.value.trim(),
+        goal: document.getElementById('goal').value.trim(),
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    function asText(d) {
+      return [
+        'Заявка в команду CustomMod',
+        '',
+        'Ник: ' + d.nick,
+        'Связь: ' + d.contact,
+        'Возраст: ' + (d.age || 'не указан'),
+        'Роль: ' + d.roles.join(', '),
+        'Часов в неделю: ' + d.hours,
+        'Портфолио: ' + (d.portfolio || 'нет'),
+        '',
+        'Опыт и умения:',
+        d.experience,
+        '',
+        'Что хочет делать:',
+        d.goal || 'не указано',
+        '',
+        'Отправлено: ' + d.createdAt
+      ].join('\n');
+    }
+
+    function showDone(text) {
+      payloadEl.hidden = false;
+      document.getElementById('copyBtn').hidden = false;
+      document.getElementById('downloadBtn').hidden = false;
+      payloadEl.textContent = text;
+      doneLead.textContent = 'Отправить автоматически не вышло. Скопируй текст и передай его в команду.';
+      tgBtn.hidden = !CONFIG.telegramUrl;
+      form.hidden = true;
+      done.hidden = false;
+    }
+
+    function showSent() {
+      payloadEl.hidden = true;
+      document.getElementById('copyBtn').hidden = true;
+      document.getElementById('downloadBtn').hidden = true;
+      tgBtn.hidden = !CONFIG.telegramUrl;
+      form.hidden = true;
+      done.hidden = false;
+      done.querySelector('h3').textContent = 'Заявка отправлена';
+      doneLead.textContent = 'Ответим в Discord или Telegram в течение 48 часов.';
+    }
+
+    function sendTelegram(d) {
+      var url = 'https://api.telegram.org/bot' + CONFIG.telegramBotToken + '/sendMessage';
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CONFIG.telegramChatId,
+          text: asText(d),
+          disable_web_page_preview: true
+        })
+      }).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function (json) {
+        if (!json || json.ok !== true) throw new Error('telegram');
+      });
+    }
+
+    function sendEndpoint(d) {
+      return fetch(CONFIG.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(d)
+      }).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+      });
+    }
+
+    function canSend() {
+      if (CONFIG.telegramBotToken && CONFIG.telegramChatId) return sendTelegram;
+      if (CONFIG.endpoint) return sendEndpoint;
+      return null;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (honey && honey.value) return;
+
+      if (!validate()) {
+        updateProgress();
+        return;
+      }
+
+      var data = collect();
+      var sender = canSend();
+
+      if (!sender) {
+        showDone(asText(data));
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправляем…';
+
+      sender(data)
+        .then(function () {
+          store(STORAGE_KEY, null);
+          store(SENT_KEY, new Date().toISOString());
+          showSent();
+        })
+        .catch(function () {
+          showDone(asText(data));
+        })
+        .then(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Отправить заявку';
+        });
+    });
+
+    document.querySelectorAll('textarea[maxlength]').forEach(function (area) {
+      var counter = document.querySelector('[data-count-for="' + area.id + '"]');
+      if (!counter) return;
+      area.addEventListener('input', function () {
+        counter.textContent = String(area.value.length);
+      });
+    });
+
+    function saveDraft() {
+      var data = collect();
+      var empty = !data.nick && !data.contact && !data.experience && !data.goal;
+      store(STORAGE_KEY, empty ? null : JSON.stringify(data));
+    }
+
+    function restoreDraft() {
+      var raw = read(STORAGE_KEY);
+      if (!raw) return;
+      var data;
+      try { data = JSON.parse(raw); } catch (e) { return; }
+      if (!data || typeof data !== 'object') return;
+
+      if (typeof data.nick === 'string') fields.nick.value = data.nick;
+      if (typeof data.contact === 'string') fields.contact.value = data.contact;
+      if (typeof data.age === 'string') fields.age.value = data.age;
+      if (typeof data.portfolio === 'string') fields.portfolio.value = data.portfolio;
+      if (typeof data.experience === 'string') fields.experience.value = data.experience;
+      if (typeof data.goal === 'string') document.getElementById('goal').value = data.goal;
+      if (typeof data.hours === 'string') document.getElementById('hours').value = data.hours;
+      if (Array.isArray(data.roles)) {
+        document.querySelectorAll('input[name="roles"]').forEach(function (input) {
+          input.checked = data.roles.indexOf(input.value) !== -1;
+        });
+      }
+      document.querySelectorAll('textarea[maxlength]').forEach(function (area) {
+        var counter = document.querySelector('[data-count-for="' + area.id + '"]');
+        if (counter) counter.textContent = String(area.value.length);
+      });
+      updateProgress();
+    }
+
+    form.addEventListener('input', function () {
+      updateProgress();
+      saveDraft();
+    });
+    form.addEventListener('change', function () {
+      updateProgress();
+      saveDraft();
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', function () {
+      var text = payloadEl.textContent || '';
+      var btn = this;
+
+      function doneCopy() {
+        btn.textContent = 'Скопировано';
+        setTimeout(function () { btn.textContent = 'Скопировать'; }, 1800);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(doneCopy).catch(function () { fallbackCopy(text, doneCopy); });
+      } else {
+        fallbackCopy(text, doneCopy);
+      }
+    });
+
+    function fallbackCopy(text, cb) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); cb(); } catch (err) { /* ignore */ }
+      document.body.removeChild(ta);
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      var text = payloadEl.textContent || '';
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'custommod-application.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
+
+    document.getElementById('againBtn').addEventListener('click', function () {
+      done.hidden = true;
+      form.hidden = false;
+      done.querySelector('h3').textContent = 'Заявка готова';
+      form.reset();
+      document.querySelectorAll('[data-count-for]').forEach(function (c) {
+        c.textContent = '0';
+      });
+      Object.keys(fields).forEach(function (k) { setError(k, ''); });
+      setError('roles', '');
+      store(STORAGE_KEY, null);
+      updateProgress();
+      fields.nick.focus();
+    });
+
+    if (CONFIG.telegramUrl) tgBtn.href = CONFIG.telegramUrl;
+
+    restoreDraft();
+    updateProgress();
+  })();
+</script>
+</body>
+</html>
